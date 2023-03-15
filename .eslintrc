@@ -1,0 +1,49 @@
+{
+  "extends": [
+    "@rn-base"
+  ],
+  "plugins": ["@graphql-eslint"],
+  "rules": {
+  //   "import/extensions": [
+  //     "error",
+  //     "ignorePackages",
+  //     {
+  //       "less": "always",
+  //       "js": "always",
+  //       "jsx": "always",
+  //       "ts": "always",
+  //       "tsx": "always",
+  //       "css": "always"
+  //     }
+  //  ],
+    "global-require": 0,
+    "max-classes-per-file": 0,
+    "react/no-array-index-key": 0,
+    "no-undef": [0, { "typeof": true }],
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": 0,
+    "no-underscore-dangle": ["error", { "allow": ["_id", "__v"] }]
+  },
+  "globals" : {
+    "Model": true,
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "navigator": true,
+    "Headers": true,
+    "Request": true,
+    "fetch": true,
+    "alert": true,
+    "requestAnimationFrame": true,
+    "cancelAnimationFrame": true,
+    "API": true
+  },
+  "settings": {
+    "import/core-modules": [
+       
+    ]
+  }
+}
