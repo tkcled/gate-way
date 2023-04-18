@@ -20,6 +20,9 @@ morgan.token('graphql-query', req => {
 
 dotenv.config()
 
+const isIntrospection =
+  process.env.INTROSPECTION === 'true' || process.env.NODE_ENV !== 'production'
+
 const main = async () => {
   const app: Express = express()
   const port = process.env.PORT
@@ -66,7 +69,7 @@ const main = async () => {
     const adminServer = new ApolloServer({
       gateway: coreGateway,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-      introspection: true,
+      introspection: isIntrospection,
       stopOnTerminationSignals: true,
     })
     await adminServer.start()
@@ -104,7 +107,7 @@ const main = async () => {
     const adminServer = new ApolloServer({
       gateway: adminGateway,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-      introspection: true,
+      introspection: isIntrospection,
       stopOnTerminationSignals: true,
     })
     await adminServer.start()
