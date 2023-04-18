@@ -25,7 +25,6 @@ const main = async () => {
   const port = process.env.PORT
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
-  app.use(helmet())
 
   // app.use(morgan(':graphql-query'))
 
@@ -47,7 +46,6 @@ const main = async () => {
           url: process.env[i],
         })),
         pollIntervalInMs: 3000,
-        introspectionHeaders: h => h,
       }),
       buildService: ({ name, url }) => {
         return new RemoteGraphQLDataSource({
@@ -68,6 +66,8 @@ const main = async () => {
     const adminServer = new ApolloServer({
       gateway: coreGateway,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+      introspection: true,
+      stopOnTerminationSignals: true,
     })
     await adminServer.start()
 
@@ -83,7 +83,6 @@ const main = async () => {
           name: i,
           url: process.env[i],
         })),
-        introspectionHeaders: h => h,
         pollIntervalInMs: 3000,
       }),
       buildService: ({ name, url }) => {
@@ -105,11 +104,14 @@ const main = async () => {
     const adminServer = new ApolloServer({
       gateway: adminGateway,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+      introspection: true,
+      stopOnTerminationSignals: true,
     })
     await adminServer.start()
 
     app.use('/graphql/admin', expressMiddleware(adminServer, { context: async r => r }))
 
+    app.use(helmet())
     console.log(`⚡️[server]: Admin Service is running at http://localhost:${port}/graphql/admin `)
   }
 
