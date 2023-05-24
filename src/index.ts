@@ -27,9 +27,9 @@ const main = async () => {
   const app: Express = express()
   const port = process.env.PORT
   app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(bodyParser.urlencoded({ extended: false }))
 
-  // app.use(morgan(':graphql-query'))
+  app.use(morgan(':graphql-query'))
 
   const envKeys = Object.keys(process.env)
 
@@ -37,7 +37,9 @@ const main = async () => {
 
   const coreService = envKeys.filter(i => i.startsWith('SERVICE_') && process.env[i])
 
-  app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'] }))
+  if (process.env.ENABLE_CORS === 'true') {
+    app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'] }))
+  }
 
   const httpServer = http.createServer(app)
 
