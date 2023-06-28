@@ -76,7 +76,7 @@ const main = async () => {
     })
     await adminServer.start()
 
-    app.use('/graphql/core', expressMiddleware(adminServer))
+    app.use('/graphql/core', expressMiddleware(adminServer, { context: async r => r }))
 
     console.log(`⚡️[server]: Core Service is running at http://localhost:${port}/graphql/core `)
   }
