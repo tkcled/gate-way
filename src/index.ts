@@ -9,6 +9,7 @@ import http from 'http'
 import { ApolloGateway, IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { expressMiddleware } from '@apollo/server/express4'
+import { graphqlUploadExpress } from 'graphql-upload-minimal'
 
 morgan.token('graphql-query', req => {
   // @ts-ignore
@@ -113,6 +114,8 @@ const main = async () => {
       stopOnTerminationSignals: true,
     })
     await adminServer.start()
+
+    app.use(graphqlUploadExpress())
 
     app.use('/graphql/admin', expressMiddleware(adminServer, { context: async r => r }))
 
