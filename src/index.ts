@@ -10,6 +10,7 @@ import { ApolloGateway, IntrospectAndCompose, RemoteGraphQLDataSource } from '@a
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { expressMiddleware } from '@apollo/server/express4'
 import { graphqlUploadExpress } from 'graphql-upload-minimal'
+import FileUploadDataSource from '@profusion/apollo-federation-upload'
 
 morgan.token('graphql-query', req => {
   // @ts-ignore
@@ -54,7 +55,7 @@ const main = async () => {
         pollIntervalInMs: 3000,
       }),
       buildService: ({ name, url }) => {
-        return new RemoteGraphQLDataSource({
+        return new FileUploadDataSource({
           url,
           willSendRequest: ({ request, context }) => {
             if (context.req?.headers) {
@@ -92,7 +93,7 @@ const main = async () => {
         pollIntervalInMs: 3000,
       }),
       buildService: ({ name, url }) => {
-        return new RemoteGraphQLDataSource({
+        return new FileUploadDataSource({
           url,
           willSendRequest: ({ request, context }) => {
             if (context.req?.headers) {
@@ -115,7 +116,7 @@ const main = async () => {
     })
     await adminServer.start()
 
-    app.use(graphqlUploadExpress())
+    // app.use(graphqlUploadExpress())
 
     app.use('/graphql/admin', expressMiddleware(adminServer, { context: async r => r }))
 
