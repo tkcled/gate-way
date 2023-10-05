@@ -8,13 +8,23 @@ import { ApolloServer } from '@apollo/server'
 import http from 'http'
 import { ApolloGateway, IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
 import { expressMiddleware } from '@apollo/server/express4'
-import { graphqlUploadExpress } from 'graphql-upload-minimal'
-import FileUploadDataSource from '@profusion/apollo-federation-upload'
+// import { graphqlUploadExpress } from 'graphql-upload-minimal'
+// import FileUploadDataSource from '@profusion/apollo-federation-upload'
+import { Headers } from 'apollo-server-env'
+// @ts-expect-error
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
+import FileUploadDataSource from '@lib/FileUploadDataSource'
+import DataSourceWithCustomHeaders from './DataSourceWithCustomHeaders'
 
 morgan.token('graphql-query', req => {
   // @ts-ignore
   const { query, variables, operationName } = req.body
+  if (operationName === 'IntrospectionQuery') {
+    return
+  }
+  // eslint-disable-next-line consistent-return
   return `GRAPHQL: \nOperation Name: ${operationName} \nQuery: ${query} \nVariables: ${JSON.stringify(
     variables,
   )}`
@@ -30,7 +40,7 @@ const main = async () => {
   const port = process.env.PORT
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
-
+  app.use(graphqlUploadExpress())
   app.use(morgan(':graphql-query'))
 
   const envKeys = Object.keys(process.env)
@@ -55,14 +65,27 @@ const main = async () => {
         pollIntervalInMs: 3000,
       }),
       buildService: ({ name, url }) => {
-        return new FileUploadDataSource({
+        return new DataSourceWithCustomHeaders({
           url,
           willSendRequest: ({ request, context }) => {
+            if (!request.http) {
+              // eslint-disable-next-line no-param-reassign
+              request.http = {
+                headers: new Headers(),
+                method: 'POST',
+                url: '',
+              }
+            }
+
             if (context.req?.headers) {
               // eslint-disable-next-line no-restricted-syntax
               for (const [headerKey, headerValue] of Object.entries(context.req.headers)) {
-                // @ts-ignore
-                if (headerKey && headerValue) request.http?.headers.set(headerKey, headerValue)
+                if (headerKey !== 'content-type' && headerKey !== 'content-length') {
+                  if (headerKey && headerValue) {
+                    // @ts-ignore
+                    request.http?.headers.set(headerKey, headerValue)
+                  }
+                }
               }
             }
           },
@@ -96,11 +119,24 @@ const main = async () => {
         return new FileUploadDataSource({
           url,
           willSendRequest: ({ request, context }) => {
+            if (!request.http) {
+              // eslint-disable-next-line no-param-reassign
+              request.http = {
+                headers: new Headers(),
+                method: 'POST',
+                url: '',
+              }
+            }
+
             if (context.req?.headers) {
               // eslint-disable-next-line no-restricted-syntax
               for (const [headerKey, headerValue] of Object.entries(context.req.headers)) {
-                // @ts-ignore
-                if (headerKey && headerValue) request.http?.headers.set(headerKey, headerValue)
+                if (headerKey !== 'content-type' && headerKey !== 'content-length') {
+                  if (headerKey && headerValue) {
+                    // @ts-ignore
+                    request.http?.headers.set(headerKey, headerValue)
+                  }
+                }
               }
             }
           },
@@ -110,15 +146,18 @@ const main = async () => {
 
     const adminServer = new ApolloServer({
       gateway: adminGateway,
-      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-      introspection: isIntrospection,
-      stopOnTerminationSignals: true,
+      plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), ApolloServerPluginInlineTrace()],
+      // introspection: isIntrospection,
+      // stopOnTerminationSignals: true,
+      // csrfPrevention: true,
     })
     await adminServer.start()
 
-    // app.use(graphqlUploadExpress())
-
-    app.use('/graphql/admin', expressMiddleware(adminServer, { context: async r => r }))
+    app.use(
+      '/graphql/admin',
+      // graphqlUploadExpress(),
+      expressMiddleware(adminServer, { context: async r => r }),
+    )
 
     app.use(helmet())
     console.log(`⚡️[server]: Admin Service is running at http://localhost:${port}/graphql/admin `)
