@@ -1,3 +1,4 @@
 dist/
 apps/server/db/
 lint-staged.config.js
+**/node_modules/**

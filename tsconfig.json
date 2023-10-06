@@ -1,35 +1,48 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "dist",
     "paths": {
-      "@*": ["./src/*"]
+      "@*": [
+        "./src/*"
+      ]
     },
+    
+    "target": "es2015",
+    "lib": ["es2017", "es7", "es6"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    // "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "nodenext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "plugins": [
       {
         "transform": "@zerollup/ts-transform-paths"
       }
     ],
-    "baseUrl": ".",
-    "rootDir": ".",
-    "typeRoots": ["node", "@types", "global.d.ts"],
-    "outDir": "dist",
-    "target": "es2020",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": ["ESNext"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowJs": true,
-    "strictPropertyInitialization": false,
-    "allowSyntheticDefaultImports": true,
-    "noImplicitOverride": false
+    
   },
   "ts-node": {
     "files": true,
     "swc": true
   },
-  "include": ["./src/**/*.ts", "./@types/**/*.d.ts", "./src/**/*.mts", "./src/**/*.js"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "@types/**/*.d.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

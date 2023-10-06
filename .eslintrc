@@ -22,7 +22,8 @@
     "no-undef": [0, { "typeof": true }],
     "no-unused-vars": 0,
     "@typescript-eslint/no-unused-vars": 0,
-    "no-underscore-dangle": ["error", { "allow": ["_id", "__v"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_id", "__v"] }],
+    "@typescript-eslint/ban-ts-comment": 0
   },
   "globals" : {
     "Model": true,

@@ -219,7 +219,6 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
       httpResponse = await this.fetcher(this.url, options)
 
       const body = await this.parseBody(httpResponse)
-      console.log('🚀 ~ file: FileUploadDataSource.ts:222 ~ FileUploadDataSource ~ body:', body)
 
       if (!isObject(body)) {
         throw new Error(`Expected JSON response body, but received: ${body}`)
