@@ -1,2 +1,10 @@
 import './dotenv'
-import './standalone'
+const isLegacy = process.env.LEGACY === 'true'
+
+if (isLegacy) {
+  require('./multiple')
+}
+
+if (!isLegacy) {
+  require('./standalone')
+}

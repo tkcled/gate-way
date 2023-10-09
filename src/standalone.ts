@@ -11,7 +11,7 @@ const main = async () => {
   const app = getExpressApp()
   const httpServer = http.createServer(app)
 
-  const server = initApolloServer({
+  const server = await initApolloServer({
     port,
     path: '/graphql',
     app,
