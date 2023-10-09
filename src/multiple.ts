@@ -15,7 +15,6 @@ import { expressMiddleware } from '@apollo/server/express4'
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
 import FileUploadDataSource from '@lib/FileUploadDataSource'
 import DataSourceWithCustomHeaders from './DataSourceWithCustomHeaders'
-console.log('asdasd')
 morgan.token('graphql-query', req => {
   // @ts-ignore
   const { query, variables, operationName } = req.body

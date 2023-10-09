@@ -13,6 +13,7 @@
     "start:s": "node dist/src/index.js",
     "start": "node dist/src/index.js",
     "dev": "nodemon",
+    "dev:bun": "bun src/index.ts",
     "build:ncc": "ncc build src/index.ts -o dist"
   },
   "license": "MIT",
