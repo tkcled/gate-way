@@ -12,7 +12,6 @@ import cloneDeep from 'lodash.clonedeep'
 import set from 'lodash.set'
 import type { FetchInterface, FetchOptions } from 'make-fetch-happen'
 
-import console from 'console'
 import fetcher from 'make-fetch-happen'
 import FormData from './FormData'
 
