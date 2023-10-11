@@ -9,7 +9,7 @@ if [ -z $1 ]; then
 fi
 
 # build image
-docker build -f docker/Dockerfile -t registry.eventop.site/federation:"$tag_image" .
+docker build -f docker/Dockerfile -t registry.ctisoftware.vn/federation:"$tag_image" .
 
 node script/change-version-after-build-docker-image.js $tag_image
 # shellcheck disable=SC2046
