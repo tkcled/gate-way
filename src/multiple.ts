@@ -143,8 +143,8 @@ const main = async () => {
     const adminServer = new ApolloServer({
       gateway: adminGateway,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), ApolloServerPluginInlineTrace()],
-      // introspection: isIntrospection,
-      // stopOnTerminationSignals: true,
+      introspection: isIntrospection,
+      stopOnTerminationSignals: true,
       // csrfPrevention: true,
     })
     await adminServer.start()
