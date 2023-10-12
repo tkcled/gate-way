@@ -9,12 +9,10 @@ import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
 import { expressMiddleware } from '@apollo/server/express4'
-// import { graphqlUploadExpress } from 'graphql-upload-minimal'
-// import FileUploadDataSource from '@profusion/apollo-federation-upload'
 // @ts-expect-error
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
-import FileUploadDataSource from '@lib/FileUploadDataSource'
-import DataSourceWithCustomHeaders from './DataSourceWithCustomHeaders'
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress'
+import FileUploadDataSource from '@lib/FileUploadDataSource.mts'
+import DataSourceWithCustomHeaders from './DataSourceWithCustomHeaders.mts'
 import { Headers } from 'node-fetch'
 
 morgan.token('graphql-query', req => {
@@ -62,7 +60,7 @@ const main = async () => {
         pollIntervalInMs: 3000,
       }),
       buildService: ({ name, url }) => {
-        return new DataSourceWithCustomHeaders({
+        return new FileUploadDataSource({
           url,
           willSendRequest: ({ request, context }) => {
             if (!request.http) {

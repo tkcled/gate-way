@@ -3,8 +3,7 @@ import cors from 'cors'
 import express, { Express } from 'express'
 import morgan from 'morgan'
 // @ts-expect-error
-// eslint-disable-next-line import/extensions
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress'
 import helmet from 'helmet'
 
 morgan.token('graphql-query', req => {

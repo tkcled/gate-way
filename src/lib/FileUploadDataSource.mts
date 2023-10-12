@@ -1,11 +1,6 @@
 import { GraphQLDataSourceProcessOptions, RemoteGraphQLDataSource } from '@apollo/gateway'
-// eslint-disable-next-line import/extensions
-// @ts-ignore
-import Upload from 'graphql-upload/Upload.js'
-// eslint-disable-next-line import/extensions
-// @ts-ignore
-import type { FileUpload } from 'graphql-upload/GraphQLUpload.js'
-import { isObject } from '@apollo/gateway/dist/utilities/predicates'
+import Upload, { FileUpload } from 'graphql-upload/Upload.mjs'
+import { isObject } from '@apollo/gateway/dist/utilities/predicates.js'
 // @ts-ignore
 import cloneDeep from 'lodash.clonedeep'
 // @ts-ignore
@@ -13,7 +8,7 @@ import set from 'lodash.set'
 import type { FetchInterface, FetchOptions } from 'make-fetch-happen'
 
 import fetcher from 'make-fetch-happen'
-import FormData from './FormData'
+import FormData from './FormData.mts'
 
 type FileVariablesTuple = [string, Promise<FileUpload>]
 
@@ -226,6 +221,7 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
         throw new Error(`Expected JSON response body, but received: ${body}`)
       }
       const response = {
+        //@ts-ignore
         ...body,
         http: httpResponse,
       }

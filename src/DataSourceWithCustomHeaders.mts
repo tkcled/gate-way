@@ -1,6 +1,6 @@
 import { GraphQLDataSourceProcessOptions } from '@apollo/gateway'
 // import { Headers } from 'apollo-server-env'
-import FileUploadDataSource from './lib/FileUploadDataSource'
+import FileUploadDataSource from './lib/FileUploadDataSource.mts'
 // import { FetcherHeaders } from '@apollo/utils.fetcher'
 // import { Headers } from '@lib/header'
 // import FileUploadDataSource from '@profusion/apollo-federation-upload'

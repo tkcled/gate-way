@@ -1,5 +1,5 @@
-import { initApolloServer } from '@apollo-server'
-import { getExpressApp } from '@expess'
+import { initApolloServer } from './apollo-server.mts'
+import { getExpressApp } from './expess.mts'
 import http from 'http'
 
 const port = Number(process.env.PORT || 3000)

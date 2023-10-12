@@ -3,7 +3,7 @@ import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
-import FileUploadDataSource from '@lib'
+import FileUploadDataSource from './lib/index.mts'
 import type { Express } from 'express'
 import type http from 'http'
 import { Headers } from 'node-fetch'
@@ -31,6 +31,7 @@ export const initApolloServer = async (p: Prop) => {
     buildService: ({ name, url }) => {
       return new FileUploadDataSource({
         url,
+        //@ts-ignore
         willSendRequest: ({ request, context }) => {
           if (!request.http) {
             request.http = {

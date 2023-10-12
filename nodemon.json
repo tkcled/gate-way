@@ -1,6 +1,6 @@
 {
     "watch": ["src"],
-    "ext": "ts,json, js",
+    "ext": "ts,json, js, mts",
     "ignore": ["src/**/*.spec.ts"],
-    "exec": "bun ./src/index.ts"
+    "exec": "node --loader ts-node/esm --experimental-specifier-resolution=node --require ts-node/register --require tsconfig-paths/register ./src/index.mts"
 }

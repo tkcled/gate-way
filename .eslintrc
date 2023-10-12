@@ -4,18 +4,19 @@
   ],
   "plugins": ["@graphql-eslint"],
   "rules": {
-  //   "import/extensions": [
-  //     "error",
-  //     "ignorePackages",
-  //     {
-  //       "less": "always",
-  //       "js": "always",
-  //       "jsx": "always",
-  //       "ts": "always",
-  //       "tsx": "always",
-  //       "css": "always"
-  //     }
-  //  ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "less": "always",
+        "js": "always",
+        "jsx": "always",
+        "ts": "always",
+        "tsx": "always",
+        "css": "always",
+        "mjs": "always"
+      }
+   ],
     "global-require": 0,
     "max-classes-per-file": 0,
     "react/no-array-index-key": 0,

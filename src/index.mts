@@ -1,10 +1,10 @@
-import './dotenv'
+import './dotenv.mts'
 const isLegacy = process.env.LEGACY === 'true'
 
 if (isLegacy) {
-  require('./multiple')
+  import('./multiple.mts')
 }
 
 if (!isLegacy) {
-  require('./standalone')
+  import('./standalone.mts')
 }
