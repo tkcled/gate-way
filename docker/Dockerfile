@@ -44,4 +44,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 
-CMD ["node", "index.mjs"]
+CMD ["node", "index.js"]
