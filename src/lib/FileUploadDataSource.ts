@@ -79,6 +79,7 @@ const addDataToForm: AddDataHandler = (
   )
 
 export default class FileUploadDataSource extends RemoteGraphQLDataSource {
+  //@ts-ignore
   fetcher: FetchInterface
 
   private static extractFileVariables(rootVariables?: Variables): FileVariablesTuple[] {
@@ -129,6 +130,7 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
     super(config)
     const useChunkedTransfer = config?.useChunkedTransfer ?? true
     this.addDataHandler = useChunkedTransfer ? addChunkedDataToForm : addDataToForm
+    //@ts-ignore
     this.fetcher = fetcher.defaults({
       // Allow an arbitrary number of sockets per subgraph. This is the default
       // behavior of Node's http.Agent as well as the npm package agentkeepalive
@@ -215,6 +217,7 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
     let httpResponse: Response | undefined
 
     try {
+      //@ts-ignore
       httpResponse = await this.fetcher(this.url, options)
 
       const body = await this.parseBody(httpResponse)
@@ -233,12 +236,14 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
 
       return response
     } catch (error) {
+      //@ts-ignore
       this.didEncounterError(error, options, httpResponse)
       throw error
     }
   }
 
   // eslint-disable-next-line class-methods-use-this
+  //@ts-ignore
   public override didEncounterError(
     error: unknown,
     _request: FetchOptions,

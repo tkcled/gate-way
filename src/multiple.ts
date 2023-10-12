@@ -15,6 +15,8 @@ import { expressMiddleware } from '@apollo/server/express4'
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
 import FileUploadDataSource from '@lib/FileUploadDataSource'
 import DataSourceWithCustomHeaders from './DataSourceWithCustomHeaders'
+import { Headers } from 'node-fetch'
+
 morgan.token('graphql-query', req => {
   // @ts-ignore
   const { query, variables, operationName } = req.body
@@ -63,14 +65,13 @@ const main = async () => {
         return new DataSourceWithCustomHeaders({
           url,
           willSendRequest: ({ request, context }) => {
-            // if (!request.http) {
-            //   // eslint-disable-next-line no-param-reassign
-            //   request.http = {
-            //     headers: new Headers(),
-            //     method: 'POST',
-            //     url: '',
-            //   }
-            // }
+            if (!request.http) {
+              request.http = {
+                headers: new Headers(),
+                method: 'POST',
+                url: '',
+              }
+            }
 
             if (context.req?.headers) {
               // eslint-disable-next-line no-restricted-syntax
