@@ -9,10 +9,8 @@ import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
 import { expressMiddleware } from '@apollo/server/express4'
-// @ts-expect-error
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress'
-import FileUploadDataSource from '@lib/FileUploadDataSource.mts'
-import DataSourceWithCustomHeaders from './DataSourceWithCustomHeaders.mts'
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs'
+import FileUploadDataSource from './lib/FileUploadDataSource.mjs'
 import { Headers } from 'node-fetch'
 
 morgan.token('graphql-query', req => {
@@ -31,7 +29,7 @@ const isIntrospection =
   process.env.INTROSPECTION === 'true' || process.env.NODE_ENV !== 'production'
 
 const main = async () => {
-  const app: Express = express()
+  const app = express()
   const port = process.env.PORT
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))

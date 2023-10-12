@@ -3,9 +3,9 @@ import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
-import FileUploadDataSource from './lib/index.mts'
-import type { Express } from 'express'
-import type http from 'http'
+import FileUploadDataSource from './lib/index.mjs'
+import { Express } from 'express'
+import http from 'http'
 import { Headers } from 'node-fetch'
 
 type Prop = {

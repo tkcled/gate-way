@@ -1,1 +1,1 @@
-export { default } from './FileUploadDataSource.mts'
+export { default } from './FileUploadDataSource.mjs'

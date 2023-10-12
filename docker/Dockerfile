@@ -25,7 +25,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN yarn build:ncc
+RUN yarn build
 
 FROM base AS runner
 WORKDIR /app
@@ -44,4 +44,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 
-CMD ["node", "index.js"]
+CMD ["node", "index.mjs"]

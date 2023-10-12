@@ -5,10 +5,10 @@ import { isObject } from '@apollo/gateway/dist/utilities/predicates.js'
 import cloneDeep from 'lodash.clonedeep'
 // @ts-ignore
 import set from 'lodash.set'
-import type { FetchInterface, FetchOptions } from 'make-fetch-happen'
+import { FetchInterface, FetchOptions } from 'make-fetch-happen'
 
 import fetcher from 'make-fetch-happen'
-import FormData from './FormData.mts'
+import FormData from './FormData.mjs'
 
 type FileVariablesTuple = [string, Promise<FileUpload>]
 

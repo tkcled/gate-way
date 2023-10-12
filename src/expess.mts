@@ -2,8 +2,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import express, { Express } from 'express'
 import morgan from 'morgan'
-// @ts-expect-error
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress'
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs'
 import helmet from 'helmet'
 
 morgan.token('graphql-query', req => {
@@ -19,7 +18,7 @@ morgan.token('graphql-query', req => {
 })
 
 export const getExpressApp = () => {
-  const app: Express = express()
+  const app = express()
   const port = process.env.PORT
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
