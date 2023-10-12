@@ -10,7 +10,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
 import { expressMiddleware } from '@apollo/server/express4'
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs'
-import FileUploadDataSource from './lib/FileUploadDataSource.mjs'
+import FileUploadDataSource from './lib/FileUploadDataSource.js'
 import { Headers } from 'node-fetch'
 
 morgan.token('graphql-query', req => {

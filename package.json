@@ -15,7 +15,7 @@
     "start": "node dist/src/index.js",
     "dev": "nodemon",
     "dev:bun": "bun src/index.ts",
-    "build:ncc": "ncc build src/index.mjs -o dist",
+    "build:ncc": "ncc build src/index.ts -o dist",
     "build": "yarn build:ts && ncc build tscbuild/src/index.mjs -o dist"
   },
   "license": "MIT",

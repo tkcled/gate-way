@@ -8,7 +8,7 @@ import set from 'lodash.set'
 import { FetchInterface, FetchOptions } from 'make-fetch-happen'
 
 import fetcher from 'make-fetch-happen'
-import FormData from './FormData.mjs'
+import FormData from './FormData.js'
 
 type FileVariablesTuple = [string, Promise<FileUpload>]
 
