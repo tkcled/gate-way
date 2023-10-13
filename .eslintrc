@@ -4,25 +4,27 @@
   ],
   "plugins": ["@graphql-eslint"],
   "rules": {
-  //   "import/extensions": [
-  //     "error",
-  //     "ignorePackages",
-  //     {
-  //       "less": "always",
-  //       "js": "always",
-  //       "jsx": "always",
-  //       "ts": "always",
-  //       "tsx": "always",
-  //       "css": "always"
-  //     }
-  //  ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "less": "always",
+        "js": "always",
+        "jsx": "always",
+        "ts": "always",
+        "tsx": "always",
+        "css": "always",
+        "mjs": "always"
+      }
+   ],
     "global-require": 0,
     "max-classes-per-file": 0,
     "react/no-array-index-key": 0,
     "no-undef": [0, { "typeof": true }],
     "no-unused-vars": 0,
     "@typescript-eslint/no-unused-vars": 0,
-    "no-underscore-dangle": ["error", { "allow": ["_id", "__v"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_id", "__v"] }],
+    "@typescript-eslint/ban-ts-comment": 0
   },
   "globals" : {
     "Model": true,

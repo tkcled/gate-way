@@ -1,34 +1,42 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "tscbuild",
     "paths": {
       "@*": ["./src/*"]
     },
+
+    "target": "es2015",
+    "lib": ["es2017", "es7", "es6"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    // "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowArbitraryExtensions": true,
+    "resolvePackageJsonImports": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "plugins": [
       {
         "transform": "@zerollup/ts-transform-paths"
       }
-    ],
-    "baseUrl": ".",
-    "rootDir": ".",
-    "typeRoots": ["node", "@types", "global.d.ts"],
-    "outDir": "dist",
-    "target": "es2020",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": ["ESNext"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowJs": true,
-    "strictPropertyInitialization": false,
-    "noImplicitOverride": false
+    ]
   },
   "ts-node": {
     "files": true,
-    "swc": true
+    "swc": true,
+    "esm": true
   },
-  "include": ["./src/**/*.ts", "./@types/**/*.d.ts"]
+  "include": ["**/*.mjs","**/*.mts", "**/*.ts", "**/*.tsx", "@types/**/*.d.ts"],
+  "exclude": ["node_modules"]
 }
