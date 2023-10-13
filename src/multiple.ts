@@ -111,15 +111,13 @@ const main = async () => {
         return new FileUploadDataSource({
           url,
           willSendRequest: ({ request, context }) => {
-            // if (!request.http) {
-            //   // eslint-disable-next-line no-param-reassign
-            //   request.http = {
-            // from apollo-server-env
-            //     headers: new Headers(),
-            //     method: 'POST',
-            //     url: '',
-            //   }
-            // }
+            if (!request.http) {
+              request.http = {
+                headers: new Headers(),
+                method: 'POST',
+                url: '',
+              }
+            }
 
             if (context.req?.headers) {
               // eslint-disable-next-line no-restricted-syntax
