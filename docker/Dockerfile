@@ -25,7 +25,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN yarn build
+RUN yarn build:ncc
 
 FROM base AS runner
 WORKDIR /app

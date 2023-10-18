@@ -12,6 +12,7 @@ import { expressMiddleware } from '@apollo/server/express4'
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs'
 import FileUploadDataSource from './lib/FileUploadDataSource.js'
 import { Headers } from 'node-fetch'
+import requestIp from 'request-ip'
 
 morgan.token('graphql-query', req => {
   // @ts-ignore
@@ -35,6 +36,7 @@ const main = async () => {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(graphqlUploadExpress())
   app.use(morgan(':graphql-query'))
+  app.use(requestIp.mw())
 
   const envKeys = Object.keys(process.env)
 
@@ -120,6 +122,7 @@ const main = async () => {
             }
 
             if (context.req?.headers) {
+              request.http.headers.set('x-client-ip-custom', context.req.clientIp)
               // eslint-disable-next-line no-restricted-syntax
               for (const [headerKey, headerValue] of Object.entries(context.req.headers)) {
                 if (headerKey !== 'content-type' && headerKey !== 'content-length') {
