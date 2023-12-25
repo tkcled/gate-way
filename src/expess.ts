@@ -24,11 +24,14 @@ export const getExpressApp = () => {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(graphqlUploadExpress())
   app.use(morgan(':graphql-query'))
-  app.use(helmet())
 
   if (process.env.ENABLE_CORS === 'true') {
     app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'] }))
   }
 
   return app
+}
+
+export const useHelmet = (app: Express) => {
+  app.use(helmet())
 }

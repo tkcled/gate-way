@@ -14,6 +14,7 @@ import FileUploadDataSource from './lib/FileUploadDataSource.js'
 import { Headers } from 'node-fetch'
 import requestIp from 'request-ip'
 
+import console from 'console'
 morgan.token('graphql-query', req => {
   // @ts-ignore
   const { query, variables, operationName } = req.body

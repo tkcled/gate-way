@@ -10,10 +10,12 @@ import { Headers } from 'node-fetch'
 
 type Prop = {
   app: Express
+  name?: string
   port: number
   service: { name: string; url: string }[]
   httpServer: http.Server
   path: string
+  enableSubcription?: boolean
 }
 
 const isIntrospection =
@@ -57,6 +59,19 @@ export const initApolloServer = async (p: Prop) => {
     },
   })
 
+  if (p.enableSubcription) {
+    // TODO
+    // const wsServer = new WebSocketServer({
+    //   // This is the `httpServer` we created in a previous step.
+    //   server: p.httpServer,
+    //   // Pass a different path here if app.use
+    //   // serves expressMiddleware at a different path
+    //   path: p.path,
+    // })
+    // // eslint-disable-next-line react-hooks/rules-of-hooks
+    // serverCleanup = useServer({ schema: gateway.schema }, wsServer)
+  }
+
   const server = new ApolloServer({
     gateway: gateway,
     plugins: [
@@ -64,14 +79,16 @@ export const initApolloServer = async (p: Prop) => {
       ApolloServerPluginInlineTrace(),
     ],
     introspection: isIntrospection,
-    stopOnTerminationSignals: true,
-    // csrfPrevention: true,
+    stopOnTerminationSignals: false,
   })
+
   await server.start()
-  const path = p.path || 'graphql'
+  const path = p.path || '/graphql'
   p.app.use(path, expressMiddleware(server, { context: async r => r }))
 
-  console.log(`⚡️[server]: Service is running at http://localhost:${p.port}/${path} `)
+  console.log(
+    `⚡️[server]: Service ${p.name ?? ''} is running at http://localhost:${p.port}${path} `,
+  )
 
   return server
 }
