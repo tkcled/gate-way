@@ -79,7 +79,7 @@ export const initApolloServer = async (p: Prop) => {
       ApolloServerPluginInlineTrace(),
     ],
     introspection: isIntrospection,
-    stopOnTerminationSignals: false,
+    stopOnTerminationSignals: true,
   })
 
   await server.start()
