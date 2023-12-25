@@ -56,9 +56,10 @@
     "wrap-ansi": "^7.0.0"
   },
   "dependencies": {
-    "@apollo/gateway": "^2.5.5",
-    "@apollo/server": "^4.9.4",
-    "@apollo/utils.fetcher": "^3.0.0",
+    "@apollo/gateway": "^2.6.2",
+    "@apollo/server": "^4.9.5",
+    "@apollo/subgraph": "^2.6.2",
+    "@apollo/utils.fetcher": "^3.1.0",
     "@profusion/apollo-federation-upload": "^4.2.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -68,12 +69,14 @@
     "graphql": "^16.8.1",
     "graphql-upload": "^16.0.2",
     "graphql-upload-minimal": "^1.5.5",
+    "graphql-ws": "^5.14.2",
     "helmet": "^7.0.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.set": "^4.3.2",
     "make-fetch-happen": "^13.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
-    "request-ip": "^3.3.0"
+    "request-ip": "^3.3.0",
+    "ws": "^8.14.2"
   }
 }
